@@ -1,5 +1,9 @@
 # 常见问题
 
+## 快捷键
+
+![keyboard](images/keyboard.png)
+
 ## 避免 sudo 输入密码
 
 -   运行：
@@ -36,6 +40,16 @@
     当我们将"&"也放入“()”内之后，我们就会发现所提交的作业并不在作业列表中，无法通过jobs来查看
 
     `(ping www.ibm.com &)`
+
+## vi 编辑器上下左右键变成ABCD
+
+-   解决办法
+
+    可以在终端中输入如下命令：
+    
+    ```
+    export TERM=linux
+    ```
 
 ## 配置apt-get 源
 
@@ -76,11 +90,13 @@
     ```
 
 ## 不能识别移动硬盘
+
 -   安装：
 
     `sudo apt-get install cifs-utils`
 
 ## 双显卡设备出现未知显示器
+
 -   详细：
 
     <http://www.kaijia.me/2014/04/ubuntu-14-04-unknown-display-in-dual-graphics-solved/>
@@ -94,6 +110,7 @@
     `sudo apt-get install bumblebee-nvidia`
 
 ## 双显示器扩展方式外接显示器分辨率低
+
 -   详细：
    
     <http://www.linuxidc.com/Linux/2010-09/28586.htm>
@@ -136,48 +153,220 @@
     xrandr --output VGA1 --right-of LVDS1
     ```
 
-# 应用程序
+# 开发工具
 
-## amule
--   简介
+## oh-my-zsh
+-   官网
 
-    下载工具
+    <https://github.com/robbyrussell/oh-my-zsh>
+
+-   学习 
+
+    <http://zhuanlan.zhihu.com/mactalk/19556676>
 
 -   安装
 
-    `sudo apt-get install amule amule-utils`
+    安装zsh: 
 
--   配置与chrome关联
+    `sudo apt-get install zsh`
 
-    `sudo gedit /usr/bin/xdg-open`
+    安装oh-my-zs：
+    
+    方式一： curl
 
-    将其中open-gnome处改为
+    `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
-    ``` 
-    open_gnome()
-    {
-        if echo "$1" | grep -q '^ed2k://'; then
-        ed2k "$1"
+    方式二： wget
 
-        elif gvfs-open --help 2>/dev/null 1>&2; then
-            gvfs-open "$1"
-        else
-            gnome-open "$1"
-        fi
+    `sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"`
 
-        if [ $? -eq 0 ]; then
-            exit_success
-        else
-            exit_failure_operation_failed
-        fi
-    }
+    设置为默认shell: (重启后生效)
+
+    `chsh -s /bin/zsh`
+
+-   配置
+    
+    设置个人常用命令别名(配置: ~/.zshrc)
+
+    ```
+    alias c="clear"
+    alias s="subl"
+    alias t="gnome-terminal"
+    
+    alias gs="git status"
+    alias gb="git branch"
+    alias gc="git checkout"
+    
+    alias sc="subl ~/.zshrc"
+    alias scs="source ~/.zshrc"
     ```
 
-## virtualbox
+    使配置生效: 
 
--   使用 Virtualbox 安装 Windows
+    `source ~/.zshrc`
 
-    <http://www.linuxidc.com/Linux/2012-11/74195p3.htm>
+## autojump
+
+-   官网： <https://github.com/wting/autojump>
+
+-   安装: 
+
+    `sudo apt-get install autojump`
+
+-   配置: ~/.zshrc  
+
+    `plugins=(git autojump)`
+
+-   使配置生效:
+
+    `source ~/.zshrc`
+
+## vi 
+
+-   编辑模式
+
+    移动光标
+
+    ```
+    h            j            k            l
+    左           下           上           右
+
+    最上行:                    H
+    中间行:                    M
+    最下行:                    L
+
+    本行开头:                  0    
+    本行的第一个非空字符：       ^
+    本行末尾:                  $
+
+    到一个字的开头:             b
+    到一个字的末尾:             e
+    ```
+
+    替换和删除
+
+    ```
+    替换字符                    r_
+    删除字符                    x
+    删除行：                    dd
+    
+    删除字：
+
+    光标位置   两字之间的空格：          在一个字的首字符：  不在一个字的首字符：
+    dw         删除空格                 删除当前字         删除当前字符，直到下一个字的首字母
+    db          删除前一个字, 不删除空格   删除前一个字       删除前一个字符，直到空格
+    ```
+
+    粘贴和复制
+
+    ```
+    剪切行：                   dd
+    复制行：                   yy
+    粘贴到光标前面：            P
+    粘贴到光标后面：            p
+    ```
+
+    搜索字符串
+
+    ```
+    正向搜索：                  /string
+    反向搜索：                  ?string
+    搜索下一个：                n
+    ```
+
+    撤销和重复
+
+    ```
+    撤销：                      u
+    重复：                      .
+    ```
+
+    其他命令
+
+    ```
+    查找光标所在单词的手册：      K
+    保存退出vi：                ZZ
+    ```
+
+    进入插入模式
+
+    ```
+    光标左侧：                  i
+    光标右侧：                  a
+
+    光标所在行开头:              I
+    光标所在行结尾:              A
+
+    光标上一行:                 O
+    光标下一行:                 o
+    ```
+
+-   插入模式
+    
+    退出插入模式：              ESC
+
+
+-   命令模式
+
+    行号
+
+    ```
+    移动到第n行                 :n    .(光标所在行)    $(末尾行)
+    ```
+
+    保存和文件
+
+    ```
+    :w                    保存        
+    :wq                   保存退出
+    :q!                   不保存退出
+    :w [file]             另存为
+    :a,bw [file]          将第a行至第b行写入file文件
+    :r [file]             读取fle文件的内容，插入当前光标所在行的后面
+    :e [file]             编辑新文件
+    :f [file]             重命名文件
+    :f                    输出当前文件名称和状态
+    ```
+
+    搜索和替换
+
+    ```
+    :/str/                 正向搜索
+    :?str?                 反向搜索
+    :1,$ s/str1/str2/      用str2替换正文中首次出现的str1
+    :1,$ s/str1/str2/g     用str2替换正文中每次出现的str1
+    ```
+
+    删除正文
+
+    ```
+    :d                     删除光标所在行
+    :d .,$d                删除当前行至正文末尾
+    ```
+
+    恢复文件
+
+    ```
+    :recover               上次编辑意外退出，从临时文件恢复文件内容(该文件以.开头，并以.swp 结尾)
+    ```
+
+    选项设置
+
+    ```
+    :set [option]
+       autoindent        设置该选项，则正文自动缩进；
+       ignorecase        设置该选项，则忽略规则表达式中大小写字母的区别；
+       number            设置该选项，则显示正文行号；
+       ruler             设置该选项，则在屏幕底部显示光标所在行、列的位置；
+       tabstop           设置按 Tab 键跳过的空格数。例如 :set tabstop=n，n 默认值为 8；
+       mk                将选项保存在当前目录的 .exrc 文件中；
+    ```
+
+    执行shell命令
+
+    ```
+    :![command]            无需退出vi即可执行linux命令
+    ```
 
 ## upstart
 
@@ -290,3 +479,177 @@
       }
     }
     ```
+
+## curl
+
+-   安装
+
+    `$ sudo apt-get install curl`
+
+-   下载
+
+    http:
+
+    `curl -C -O http://cgi2.tky.3wb.ne.jp/~zzh/screen1.JPG`
+
+    ftp:
+
+    `curl -u name:passwd ftp://ip:port/path/file`
+
+    `curl ftp://name:passwd@ip:port/path/file` 
+
+-   上传
+
+    http:
+
+    `curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi`
+
+    这时候，使用的协议是HTTP的PUT method 
+
+    ftp:
+
+    `curl -T localfile -u name:passwd ftp://upload_site:port/path/`
+
+-   表单提交
+
+    GET:
+
+    `curl http://www.yahoo.com/login.cgi?user=nickwolfe&password=12345`
+
+    GET模式什么option都不用，只需要把变量写在url里面就可以了 
+
+    POST:
+
+    `curl -d "user=nickwolfe&password=12345" http://www.yahoo.com/login.cgi`
+
+    POST模式下的文件上的文件上传：
+
+    ``` HTML
+    <form method="POST" enctype="multipar/form-data" action="http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi"> 
+      <input type=file name=upload> 
+      <input type=submit name=nick value="go"> 
+    </form> 
+    ```
+
+    这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法： 
+
+    ```
+    curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+    ```
+
+-   其它参数
+
+    ```
+    -i --include 把响应头输出出来
+    ```
+
+## java
+
+-   使用 APT 安装 jdk
+
+    `sudo apt-get install openjdk-7-jdk`
+
+-   环境变量
+
+    ```
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+    export JRE_HOME=/usr/lib/jvm/java-7-openjdk-am64/jre
+    export CLASSPATH=.:JAVAHOME/lib:JRE_HOME/lib:$CLASSPATH
+    export PATH=JAVAHOME/bin:JRE_HOME/bin:$PATH
+    ```
+
+## android
+
+-   下载 android-studio
+
+    android-studio-ide-135.1629389-linux.zip
+
+-   解压运行 
+
+    `bin/studio.sh`
+
+-   配置环境变量：
+
+    ```
+    export ANDROID_HOME=/home/mwn/Android/Sdk
+    PATH=$PATH:/home/mwn/Android/Sdk/tools
+    PATH=$PATH:/home/mwn/Android/Sdk/platform-tools
+    ```
+
+-   编译报错问题:
+    
+    1.  `Cannot run   program "xxx/build-tools/21.1.0/aapt"`
+        
+        解决方案：
+
+        ```
+        sudo apt-get install lib32z1
+        sudo apt-get install lib32stdc++6
+        ```
+
+        详细： <http://jingyan.baidu.com/article/e73e26c0dab30224adb6a782.html>
+
+    2.  `/com.android.support/appcompat-v7/23.0.0/res/values-v23/values-v23.xml`
+
+        解决方案：
+
+        ```
+        进入 Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7
+        删除23.0.0文件夹，删除maven-metadata.xml中的<version>23.0.0</version>`
+        ```
+
+        详细： <http://www.68idc.cn/help/buildlang/ask/20150901530664.html>
+
+## ack-grep
+## lsof
+
+# 辅助工具
+
+## vsc
+## robomongo
+## zeal
+## xmind
+
+# 应用程序
+
+## amule
+
+-   简介
+
+    下载工具
+
+-   安装
+
+    `sudo apt-get install amule amule-utils`
+
+-   配置与chrome关联
+
+    `sudo gedit /usr/bin/xdg-open`
+
+    将其中open-gnome处改为
+
+    ``` 
+    open_gnome()
+    {
+        if echo "$1" | grep -q '^ed2k://'; then
+        ed2k "$1"
+
+        elif gvfs-open --help 2>/dev/null 1>&2; then
+            gvfs-open "$1"
+        else
+            gnome-open "$1"
+        fi
+
+        if [ $? -eq 0 ]; then
+            exit_success
+        else
+            exit_failure_operation_failed
+        fi
+    }
+    ```
+
+## virtualbox
+
+-   使用 Virtualbox 安装 Windows
+
+    <http://www.linuxidc.com/Linux/2012-11/74195p3.htm>
