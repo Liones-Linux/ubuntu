@@ -41,6 +41,22 @@
 
     `(ping www.ibm.com &)`
 
+## 卸载不常用的软件
+
+-   删除libreoffice
+
+    `sudo apt-get remove libreoffice-common`
+
+-   删除Amazon的链接
+
+    `sudo apt-get remove unity-webapps-common`
+
+-   删掉基本不用的自带软件
+
+    ```
+    sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku landscape-client-ui-install onboard deja-dup
+    ```
+
 ## vi 编辑器上下左右键变成ABCD
 
 -   解决办法
@@ -220,6 +236,40 @@
 -   使配置生效:
 
     `source ~/.zshrc`
+
+## git
+
+-   安装
+
+    `sudo apt-get install git`
+
+## node
+
+-   安装
+
+    `wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.27.0/install.sh | bash`
+
+    `nvm install 0.10.38`
+
+    `nvm use 0.10.38`
+
+    `npm install -g npm@2.9.0`
+
+-   全局安装常用模块
+
+    `npm install -g node-gyp`
+
+    `npm install -g http-server`
+
+    `npm install -g mongo-express`
+
+    `npm install -g i5ting_toc`
+
+## mongodb
+
+-   安装
+
+    `sudo apt-get install mongodb`
 
 ## vi 
 
@@ -431,6 +481,12 @@
 
     9.指定执行程序的命令
 
+## redis
+
+-   安装
+
+    `sudo apt-get install redis-server`
+
 ## nginx
 
 -   简介
@@ -446,6 +502,8 @@
     Web请求,再将非静态文件的请求转给Node。
 
 -   安装
+
+    `sudo apt-get install nginx`
 
 -   配置文件
 
@@ -479,6 +537,13 @@
       }
     }
     ```
+## rar
+
+-   安装
+
+    `sudo apt-get install rar`
+
+    `sudo apt-get install unrar`
 
 ## curl
 
@@ -601,16 +666,98 @@
         详细： <http://www.68idc.cn/help/buildlang/ask/20150901530664.html>
 
 ## ack-grep
+
+-   安装
+
+    `sudo apt-get install ack-grep`
+
 ## lsof
 
 # 辅助工具
 
+## Sublime Text 3
+
+-   安装
+
+    `sudo add-apt-repository ppa:webupd8team/sublime-text-3`
+
+    `sudo apt-get update`
+
+    `sudo apt-get install sublime-text`
+
+-   安装常用插件
+
+    ```
+    AutoFileName              // 文件路径自动补全
+    AllAutocomplete           // 根据已打开的选项卡，自动补全
+    GitGutter                 // git 实时 diff
+    MarkdownPreview           // markdown 预览
+    ```
+
 ## vsc
 ## robomongo
+
 ## zeal
+
+-   安装
+
+    `$ sudo add-apt-repository ppa:zeal-developers/ppa`
+    
+    `$ sudo apt-get update`
+
+    `$ sudo apt-get install zeal`
+
 ## xmind
 
+-   安装
+
+    下载地址： <http://xiazai.xmindchina.cn/trail/xmind-7-linux-amd64.deb>
+
+## Chrome
+
+-   安装
+
+    `wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb`
+
+    `sudo apt-get install libappindicator1 libindicator7`
+
+    `sudo dpkg -i google-chrome-stable_current_amd64.deb`  
+
+    `sudo apt-get -f install`
+
+-   安装常用插件
+
+    Postman
+    
+    JSONView
+
 # 应用程序
+
+## sogoupinyin
+
+-   安装
+
+    `sudo vi /etc/apt/sources.list` 文件，加入ubuntu的apt源：
+
+    ```
+    deb http://archive.ubuntukylin.com:10006/ubuntukylin trusty main
+    ```
+
+    `sudo apt-get update`
+
+    `sudo apt-get install sogoupinyin` 
+
+## WPS Office
+
+-   安装
+
+    `sudo apt-get install wps-office`
+
+## smplayer
+
+-   安装
+
+    `sudo apt-get install smplayer`
 
 ## amule
 
@@ -650,6 +797,11 @@
 
 ## virtualbox
 
+-   安装
+
+    下载地址： <http://download.virtualbox.org/virtualbox/5.0.10/virtualbox-5.0_5.0.10-104061~Ubuntu~trusty_amd64.deb>
+
 -   使用 Virtualbox 安装 Windows
 
     <http://www.linuxidc.com/Linux/2012-11/74195p3.htm>
+
