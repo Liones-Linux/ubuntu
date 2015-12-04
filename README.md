@@ -17,15 +17,21 @@
     %mwn ALL=(ALL:ALL) NOPASSWD: ALL
     ```
 
-## 查特定程序的进程号
+## 进程和端口
 
--   `pgrep redis`
+-   查特定程序的进程号
 
--   `ps -e | grep redis`
+    `pgrep redis`
 
--   `netstat -lnp  | grep 6379`
+    `ps -e | grep redis`
 
-    根据端口号查进程
+-   根据端口号查进程
+
+    `netstat -lnp  | grep 6379`
+
+    `$ lsof -Pnl +M -i4 | grep 20880`
+
+    [详细资料](http://www.linuxidc.com/Linux/2012-09/69684.htm)
 
 ## 让命令运行在后台
 
@@ -168,6 +174,29 @@
     xrandr --output VGA1 --mode 1440x900_60.00
     xrandr --output VGA1 --right-of LVDS1
     ```
+
+## 禁用错误提示“System Program problem detected”.
+
+-   查看错误提示文件
+
+    `$ ls /var/crash/`
+
+-   禁用提示
+
+    编辑apport文件 `/etc/default/apport`
+
+    找到 enabled=1 这一行，并改变到0(zero)
+
+    ```
+    # set this to 0 to disable apport, or to 1 to enable it
+    # you can temporarily override this with
+    # sudo service apport start force_start=1
+    enabled=0
+    ```
+
+    保存，退出。停止apport服务：
+
+    `$ sudo stop apport`
 
 # 开发工具
 
