@@ -175,13 +175,13 @@
     xrandr --output VGA1 --right-of LVDS1
     ```
 
-## 禁用错误提示“System Program problem detected”.
+## 禁用错误提示.
 
 -   查看错误提示文件
 
     `$ ls /var/crash/`
 
--   禁用提示
+-   禁用错误提示“System Program problem detected”
 
     编辑apport文件 `/etc/default/apport`
 
@@ -197,6 +197,18 @@
     保存，退出。停止apport服务：
 
     `$ sudo stop apport`
+
+## 解决解压 zip 文件中文乱码问题
+
+-   通过 unzip 命令解压，指定字符集
+
+    `unzip -O CP936 xxx.zip`  (用GBK, GB18030也可以)
+
+    unzip 的 manual 中并无这个选项的说明, unzip --help对这个参数有一行简单的说明。
+
+-   写入环境变量
+
+    `alias unzip="unzip -O CP936"`
 
 # 开发工具
 
