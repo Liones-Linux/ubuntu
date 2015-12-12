@@ -210,6 +210,72 @@
 
     `alias unzip="unzip -O CP936"`
 
+## win7/8 + Ubuntu 双系统直接进入 Ubuntu
+
+-   执行以下命令，然后重启
+
+    `$ sudo update-grub`
+
+## win7/8 + Ubuntu 双系统不能挂载 ntfs 磁盘
+
+![error-mounting.png](images/error-mounting.png)
+
+-   原理
+
+    Win8默认开启了快速启动功能，即“混合启动”。简单说，“混合启动”的原理是关机的时候只关闭用户会话，
+    让系统内核会话转入休眠状态，从而有效提高Win8系统的启动速度。这也是win8关闭和启动都很快，重启
+    很慢的原因。而这种休眠状态下的磁盘Ubuntu认为处于一种不安全的状态，所以拒绝挂载。因此我们可以
+    选择先进入Win8系统，然后重启，并进入Ubuntu的系统，即可以自动挂载。
+    
+    当然，每次选择进入WIn8再重启的方式肯定让人无法接受，那么可以选择关闭Win8的快速启动功能，就
+    可以彻底解决这个问题。
+    
+-   方法
+
+    进入控制面板，依次打开“控制面板—系统和安全—电源选项—选择电源按钮的功能”。如下图设置：
+
+    ![windows-power.jpg](images/windows-power.jpg)
+
+    首先点击上部分的“更改当前不可用的设置”，然后去掉“启用快速启动（推荐）”前面的勾即可。这个时候
+    再选择win8关机后，就是完全关机了。
+
+    注意：即使去掉了快速启动，如果Win8非正常关机，也可能会引起上面的挂载磁盘失败的问题，这时候可以
+    选择正常启动Win8，然后再关机即可。
+
+    参考资料： <http://blog.sina.com.cn/s/blog_5c9a54e30101v3zo.html>
+
+-   另外一种方法：
+
+    1、打开终端：如果没有安装ntfs-3g就要安装：sudo apt-get install ntfs-3g
+
+    2、修复挂载错误的相应的分区，例如提示中的/dev/sda8，输入： `sudo ntfsfix /dev/sda8`
+
+    参考资料： <http://ask.csdn.net/questions/188940>
+
+## win7/8 + Ubuntu 双系统 win 耳机没声音
+
+-   解决方法
+
+    在 windows 系统中点击休眠，再重新唤醒就可以了
+
+    最简单的合上笔记本盖子再重新打开。。。
+
+## 黑苹果安装卡在 PCI configuration begin 
+
+-   解决方法
+
+    如果是华硕电脑，重启进入 bios，将 Legacy USB Support 选项设置为 disabled
+
+## 黑苹果安装卡在 hfs： mounted xxx
+
+-   问题描述
+
+    黑苹果安装卡在 hfs： mounted xxx Install on device disk0s6
+
+-   解决方法
+
+    重新启动时加上 -x 选项
+
 # 开发工具
 
 ## oh-my-zsh
@@ -248,7 +314,6 @@
     ```
     alias c="clear"
     alias s="subl"
-    alias t="gnome-terminal"
     
     alias gs="git status"
     alias gb="git branch"
@@ -298,13 +363,9 @@
 
 -   全局安装常用模块
 
-    `npm install -g node-gyp`
-
     `npm install -g http-server`
 
     `npm install -g mongo-express`
-
-    `npm install -g i5ting_toc`
 
 ## mongodb
 
@@ -726,18 +787,6 @@
 
     `sudo apt-get install sublime-text`
 
--   安装常用插件
-
-    ```
-    AutoFileName              // 文件路径自动补全
-    AllAutocomplete           // 根据已打开的选项卡，自动补全
-    GitGutter                 // git 实时 diff
-    MarkdownPreview           // markdown 预览
-    ```
-
-## vsc
-## robomongo
-
 ## zeal
 
 -   安装
@@ -748,45 +797,49 @@
 
     `$ sudo apt-get install zeal`
 
+## vsc
+
+-   官网下载 deb 包
+
+    <https://code.visualstudio.com/>
+
+## robomongo
+
+-   官网下载 deb 包
+
+    `wget http://app.robomongo.org/files/linux/robomongo-0.8.5-x86_64.deb`
+
+-   其它版本
+
+    <http://app.robomongo.org/download.html>
+
 ## xmind
 
--   安装
+-   官网下载 deb 包
 
-    下载地址： <http://xiazai.xmindchina.cn/trail/xmind-7-linux-amd64.deb>
+    `wget http://xiazai.xmindchina.cn/trail/xmind-7-linux-amd64.deb`
 
 ## Chrome
 
--   安装
+-   官网下载 deb 包
 
     `wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb`
 
-    `sudo apt-get install libappindicator1 libindicator7`
-
-    `sudo dpkg -i google-chrome-stable_current_amd64.deb`  
-
-    `sudo apt-get -f install`
-
 -   安装常用插件
 
-    Postman
-    
-    JSONView
+    Postman, JSONView
 
 # 应用程序
 
 ## sogoupinyin
 
--   安装
+-   官网下载 deb 包
 
-    `sudo vi /etc/apt/sources.list` 文件，加入ubuntu的apt源：
+    <http://pinyin.sogou.com/linux/>
 
-    ```
-    deb http://archive.ubuntukylin.com:10006/ubuntukylin trusty main
-    ```
+-   配置
 
-    `sudo apt-get update`
-
-    `sudo apt-get install sogoupinyin` 
+    打开 Fcitx configuration ， 选择 '+' ，把 Only show current language 取消勾选，搜索 pinyin 添加进来
 
 ## WPS Office
 
