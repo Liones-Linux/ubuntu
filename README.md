@@ -279,6 +279,11 @@
 # 开发工具
 
 ## oh-my-zsh
+
+-   简介
+
+    终极 shell
+
 -   官网
 
     <https://github.com/robbyrussell/oh-my-zsh>
@@ -329,7 +334,13 @@
 
 ## autojump
 
--   官网： <https://github.com/wting/autojump>
+-   简介
+
+    快速跳转目录
+
+-   官网
+
+    <https://github.com/wting/autojump>
 
 -   安装: 
 
@@ -342,6 +353,20 @@
 -   使配置生效:
 
     `source ~/.zshrc`
+
+## tldr
+
+-   简介
+
+    命令帮助
+
+-   官网
+
+    <https://github.com/tldr-pages/tldr>
+
+-   安装
+
+    <npm install -g tldr>
 
 ## git
 
@@ -591,54 +616,42 @@
 
 ## nginx
 
--   简介
+-   描述
 
-    尽管Node在提供动态内容服务时很高效,但在提供图片、 CSS样式表或客户端JavaScript等静
-    态文件服务时并不是最有效的办法。
-
-    通过HTTP提供静态文件的服务应该交给专门针对这个特定任务优化过的特定软件项目,
-    因为它们多年以来主要专注于这项任务。
-
-    Nginx (http://nginx.org/en/) 是一个专门针对静态文件服务做过优化的开源Web服务器,很容
-    易设置成跟Node一起提供那些文件服务。在典型的Nginx/Node配置中,一般由Nginx先处理所有
-    Web请求,再将非静态文件的请求转给Node。
+    Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器
 
 -   安装
 
     `sudo apt-get install nginx`
 
--   配置文件
+-   常用命令
 
-    `/etc/nginx/nginx.conf`
-
--   配置选项
+    启动（指定加载的配置文件）
 
     ```
-    http {
-      upstream my_node_app {
-        server 127.0.0.1:8000;
-      }
-      server {
-        listen 80;
-        server_name localhost domain.com;
-        access_log /var/log/nginx/my_node_app.log;
-        location ~ /static/ {
-          root /home/node/my_node_app;
-          if (!-f $request_filename) {
-            return 404;
-          }
-        }
-        location / {
-          proxy_pass http://my_node_app;
-          proxy_redirect off;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header Host $http_host;
-          proxy_set_header X-NginX-Proxy true;
-        }
-      }
-    }
+    nginx -c /etc/nginx/nginx.conf
     ```
+
+    停止： 
+
+    ```
+    nginx -s stop 或者
+    nginx -s quit 或者
+    pkill -9 nginx
+    ```
+
+    重载配置： 
+
+    ```
+    nginx -s reload
+    ```
+
+    检查配置文件是否正确：
+
+    ```
+    nginx -t
+    ```
+
 ## rar
 
 -   安装
