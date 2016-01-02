@@ -1,0 +1,769 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:ubuntu</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h1 id="-">常见问题</h1>
+<h2 id="-">快捷键</h2>
+<p><img src="images/keyboard.png" alt="keyboard"></p>
+<h2 id="-sudo-">避免 sudo 输入密码</h2>
+<ul>
+<li><p>运行：</p>
+<p><code>sudo visudo</code></p>
+</li>
+<li><p>在尾部增加：</p>
+<pre><code># 属于 mwn 组的用户运行 sudo 不需要密码
+%mwn ALL=(ALL:ALL) NOPASSWD: ALL
+</code></pre></li>
+</ul>
+<h2 id="-">进程和端口</h2>
+<ul>
+<li><p>查特定程序的进程号</p>
+<p><code>pgrep redis</code></p>
+<p><code>ps -e | grep redis</code></p>
+</li>
+<li><p>根据端口号查进程</p>
+<p><code>netstat -lnp  | grep 6379</code></p>
+<p><code>$ lsof -Pnl +M -i4 | grep 20880</code></p>
+<p><a href="http://www.linuxidc.com/Linux/2012-09/69684.htm">详细资料</a></p>
+</li>
+</ul>
+<h2 id="-">让命令运行在后台</h2>
+<ul>
+<li><p>方法一</p>
+<p><code>nohub &lt;cmd&gt; &amp;</code></p>
+</li>
+<li><p>方法二</p>
+<p>将一个或多个命名包含在“()”中就能让这些命令在子 shell 中运行中</p>
+<p>当我们将&quot;&amp;&quot;也放入“()”内之后，我们就会发现所提交的作业并不在作业列表中，无法通过jobs来查看</p>
+<p><code>(ping www.ibm.com &amp;)</code></p>
+</li>
+</ul>
+<h2 id="-">卸载不常用的软件</h2>
+<ul>
+<li><p>删除libreoffice</p>
+<p><code>sudo apt-get remove libreoffice-common</code></p>
+</li>
+<li><p>删除Amazon的链接</p>
+<p><code>sudo apt-get remove unity-webapps-common</code></p>
+</li>
+<li><p>删掉基本不用的自带软件</p>
+<pre><code>sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku landscape-client-ui-install onboard deja-dup
+</code></pre></li>
+</ul>
+<h2 id="vi-abcd">vi 编辑器上下左右键变成ABCD</h2>
+<ul>
+<li><p>解决办法</p>
+<p>可以在终端中输入如下命令：</p>
+<pre><code>export TERM=linux
+</code></pre></li>
+</ul>
+<h2 id="-apt-get-">配置apt-get 源</h2>
+<ul>
+<li><p>编辑：</p>
+<p><code>vi /etc/apt/sources.list</code></p>
+</li>
+<li><p>增加国内源：</p>
+<pre><code># 搜狐源：
+deb http://mirrors.sohu.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.sohu.com/ubuntu/ precise universe
+deb-src http://mirrors.sohu.com/ubuntu/ precise universe
+deb http://mirrors.sohu.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates universe
+deb http://mirrors.sohu.com/ubuntu/ precise multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise multiverse
+deb http://mirrors.sohu.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.sohu.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.sohu.com/ubuntu/ precise-backports main restricted universe multiverse
+
+# 网易源：
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted
+deb http://mirrors.163.com/ubuntu/ precise universe
+deb-src http://mirrors.163.com/ubuntu/ precise universe
+deb http://mirrors.163.com/ubuntu/ precise-updates universe
+deb-src http://mirrors.163.com/ubuntu/ precise-updates universe
+deb http://mirrors.163.com/ubuntu/ precise multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise multiverse
+deb http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-updates multiverse
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+</code></pre></li>
+</ul>
+<h2 id="-">不能识别移动硬盘</h2>
+<ul>
+<li><p>安装：</p>
+<p><code>sudo apt-get install cifs-utils</code></p>
+</li>
+</ul>
+<h2 id="-">双显卡设备出现未知显示器</h2>
+<ul>
+<li><p>详细：</p>
+<p><a href="http://www.kaijia.me/2014/04/ubuntu-14-04-unknown-display-in-dual-graphics-solved/">http://www.kaijia.me/2014/04/ubuntu-14-04-unknown-display-in-dual-graphics-solved/</a></p>
+</li>
+<li><p>原因：</p>
+<p>官方对这个错误的解释是双显卡驱动的情况下（比如Kaijia的笔记本是就是集显和N卡热切换）Ubuntu会同时读出两个显示器，显示的效果即为一个内置显示器和一个未知显示器。</p>
+</li>
+<li><p>解决：</p>
+<p><code>sudo apt-get install bumblebee-nvidia</code></p>
+</li>
+</ul>
+<h2 id="-">双显示器扩展方式外接显示器分辨率低</h2>
+<ul>
+<li><p>详细：</p>
+<p><a href="http://www.linuxidc.com/Linux/2010-09/28586.htm">http://www.linuxidc.com/Linux/2010-09/28586.htm</a></p>
+</li>
+<li><p><code>cvt 1440 900</code></p>
+<p>结果如下</p>
+<pre><code># 1440x900 59.89 Hz (CVT 1.30MA) hsync: 55.93 kHz; pclk: 106.50 MHz
+Modeline &quot;1440x900_60.00&quot;  106.50  1440 1528 1672 1904  900 903 909 934 -hsync +vsync
+</code></pre><p>Modeline后面的值在下边要用。然后执行</p>
+</li>
+<li><p><code>xrandr</code></p>
+<p>得到显示器名称，我的为 VGA1，笔记本为LVDS1，大家以此类推，不一定都一样</p>
+</li>
+<li><p><code>sudo xrandr --newmode &quot;1440x900_60.00&quot; 106.50 1440 1528 1672 1904 900 903 909 934 -hsync +vsync</code></p>
+<p>参数就是cvt结果中Modeline后面的那一堆，根据自己的参数调整。</p>
+</li>
+<li><p><code>xrandr</code></p>
+<p>就可以看到新加的那个设置了。</p>
+</li>
+<li><p><code>sudo xrandr --addmode VGA1 &quot;1440x900_60.00&quot;</code>
+添加新的mode</p>
+</li>
+<li><p>添加启动脚本：</p>
+<p>编辑 <code>/etc/rc.local</code></p>
+<pre><code>xrandr --newmode &quot;1440x900_60.00&quot;  106.50  1440 1528 1672 1904  900 903 909 934 -hsync +vsync
+xrandr --addmode VGA1 &quot;1440x900_60.00&quot;
+xrandr --output LVDS1 --mode 1366x768
+xrandr --output VGA1 --mode 1440x900_60.00
+xrandr --output VGA1 --right-of LVDS1
+</code></pre></li>
+</ul>
+<h2 id="-">禁用错误提示.</h2>
+<ul>
+<li><p>查看错误提示文件</p>
+<p><code>$ ls /var/crash/</code></p>
+</li>
+<li><p>禁用错误提示“System Program problem detected”</p>
+<p>编辑apport文件 <code>/etc/default/apport</code></p>
+<p>找到 enabled=1 这一行，并改变到0(zero)</p>
+<pre><code># set this to 0 to disable apport, or to 1 to enable it
+# you can temporarily override this with
+# sudo service apport start force_start=1
+enabled=0
+</code></pre><p>保存，退出。停止apport服务：</p>
+<p><code>$ sudo stop apport</code></p>
+</li>
+</ul>
+<h2 id="-zip-">解决解压 zip 文件中文乱码问题</h2>
+<ul>
+<li><p>通过 unzip 命令解压，指定字符集</p>
+<p><code>unzip -O CP936 xxx.zip</code>  (用GBK, GB18030也可以)</p>
+<p>unzip 的 manual 中并无这个选项的说明, unzip --help对这个参数有一行简单的说明。</p>
+</li>
+<li><p>写入环境变量</p>
+<p><code>alias unzip=&quot;unzip -O CP936&quot;</code></p>
+</li>
+</ul>
+<h2 id="win7-8-ubuntu-ubuntu">win7/8 + Ubuntu 双系统直接进入 Ubuntu</h2>
+<ul>
+<li><p>执行以下命令，然后重启</p>
+<p><code>$ sudo update-grub</code></p>
+</li>
+</ul>
+<h2 id="win7-8-ubuntu-ntfs-">win7/8 + Ubuntu 双系统不能挂载 ntfs 磁盘</h2>
+<p><img src="images/error-mounting.png" alt="error-mounting.png"></p>
+<ul>
+<li><p>原理</p>
+<p>Win8默认开启了快速启动功能，即“混合启动”。简单说，“混合启动”的原理是关机的时候只关闭用户会话，
+让系统内核会话转入休眠状态，从而有效提高Win8系统的启动速度。这也是win8关闭和启动都很快，重启
+很慢的原因。而这种休眠状态下的磁盘Ubuntu认为处于一种不安全的状态，所以拒绝挂载。因此我们可以
+选择先进入Win8系统，然后重启，并进入Ubuntu的系统，即可以自动挂载。</p>
+<p>当然，每次选择进入WIn8再重启的方式肯定让人无法接受，那么可以选择关闭Win8的快速启动功能，就
+可以彻底解决这个问题。</p>
+</li>
+<li><p>方法</p>
+<p>进入控制面板，依次打开“控制面板—系统和安全—电源选项—选择电源按钮的功能”。如下图设置：</p>
+<p><img src="images/windows-power.jpg" alt="windows-power.jpg"></p>
+<p>首先点击上部分的“更改当前不可用的设置”，然后去掉“启用快速启动（推荐）”前面的勾即可。这个时候
+再选择win8关机后，就是完全关机了。</p>
+<p>注意：即使去掉了快速启动，如果Win8非正常关机，也可能会引起上面的挂载磁盘失败的问题，这时候可以
+选择正常启动Win8，然后再关机即可。</p>
+<p>参考资料： <a href="http://blog.sina.com.cn/s/blog_5c9a54e30101v3zo.html">http://blog.sina.com.cn/s/blog_5c9a54e30101v3zo.html</a></p>
+</li>
+<li><p>另外一种方法：</p>
+<p>1、打开终端：如果没有安装ntfs-3g就要安装：sudo apt-get install ntfs-3g</p>
+<p>2、修复挂载错误的相应的分区，例如提示中的/dev/sda8，输入： <code>sudo ntfsfix /dev/sda8</code></p>
+<p>参考资料： <a href="http://ask.csdn.net/questions/188940">http://ask.csdn.net/questions/188940</a></p>
+</li>
+</ul>
+<h2 id="win7-8-ubuntu-win-">win7/8 + Ubuntu 双系统 win 耳机没声音</h2>
+<ul>
+<li><p>解决方法</p>
+<p>在 windows 系统中点击休眠，再重新唤醒就可以了</p>
+<p>最简单的合上笔记本盖子再重新打开。。。</p>
+</li>
+</ul>
+<h2 id="-pci-configuration-begin">黑苹果安装卡在 PCI configuration begin</h2>
+<ul>
+<li><p>解决方法</p>
+<p>如果是华硕电脑，重启进入 bios，将 Legacy USB Support 选项设置为 disabled</p>
+</li>
+</ul>
+<h2 id="-hfs-mounted-xxx">黑苹果安装卡在 hfs： mounted xxx</h2>
+<ul>
+<li><p>问题描述</p>
+<p>黑苹果安装卡在 hfs： mounted xxx Install on device disk0s6</p>
+</li>
+<li><p>解决方法</p>
+<p>重新启动时加上 -x 选项</p>
+</li>
+</ul>
+<h1 id="-">开发工具</h1>
+<h2 id="oh-my-zsh">oh-my-zsh</h2>
+<ul>
+<li><p>简介</p>
+<p>终极 shell</p>
+</li>
+<li><p>官网</p>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh">https://github.com/robbyrussell/oh-my-zsh</a></p>
+</li>
+<li><p>学习 </p>
+<p><a href="http://zhuanlan.zhihu.com/mactalk/19556676">http://zhuanlan.zhihu.com/mactalk/19556676</a></p>
+</li>
+<li><p>安装</p>
+<p>安装zsh: </p>
+<p><code>sudo apt-get install zsh</code></p>
+<p>安装oh-my-zs：</p>
+<p>方式一： curl</p>
+<p><code>sh -c &quot;$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</code></p>
+<p>方式二： wget</p>
+<p><code>sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></p>
+<p>设置为默认shell: (重启后生效)</p>
+<p><code>chsh -s /bin/zsh</code></p>
+</li>
+<li><p>配置</p>
+<p>设置个人常用命令别名(配置: ~/.zshrc)</p>
+<pre><code>alias c=&quot;clear&quot;
+alias s=&quot;subl&quot;
+
+alias gs=&quot;git status&quot;
+alias gb=&quot;git branch&quot;
+alias gc=&quot;git checkout&quot;
+
+alias sc=&quot;subl ~/.zshrc&quot;
+alias scs=&quot;source ~/.zshrc&quot;
+</code></pre><p>使配置生效: </p>
+<p><code>source ~/.zshrc</code></p>
+</li>
+</ul>
+<h2 id="autojump">autojump</h2>
+<ul>
+<li><p>简介</p>
+<p>快速跳转目录</p>
+</li>
+<li><p>官网</p>
+<p><a href="https://github.com/wting/autojump">https://github.com/wting/autojump</a></p>
+</li>
+<li><p>安装: </p>
+<p><code>sudo apt-get install autojump</code></p>
+</li>
+<li><p>配置: ~/.zshrc  </p>
+<p><code>plugins=(git autojump)</code></p>
+</li>
+<li><p>使配置生效:</p>
+<p><code>source ~/.zshrc</code></p>
+</li>
+</ul>
+<h2 id="tldr">tldr</h2>
+<ul>
+<li><p>简介</p>
+<p>命令帮助</p>
+</li>
+<li><p>官网</p>
+<p><a href="https://github.com/tldr-pages/tldr">https://github.com/tldr-pages/tldr</a></p>
+</li>
+<li><p>安装</p>
+<npm install -g tldr>
+
+</li>
+</ul>
+<h2 id="git">git</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install git</code></p>
+</li>
+</ul>
+<h2 id="node">node</h2>
+<ul>
+<li><p>安装</p>
+<p><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.27.0/install.sh | bash</code></p>
+<p><code>nvm install 0.10.38</code></p>
+<p><code>nvm use 0.10.38</code></p>
+<p><code>npm install -g npm@2.9.0</code></p>
+</li>
+<li><p>全局安装常用模块</p>
+<p><code>npm install -g http-server</code></p>
+<p><code>npm install -g mongo-express</code></p>
+</li>
+</ul>
+<h2 id="mongodb">mongodb</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install mongodb</code></p>
+</li>
+</ul>
+<h2 id="vi">vi</h2>
+<ul>
+<li><p>编辑模式</p>
+<p>移动光标</p>
+<pre><code>h            j            k            l
+左           下           上           右
+
+最上行:                    H
+中间行:                    M
+最下行:                    L
+
+本行开头:                  0    
+本行的第一个非空字符：       ^
+本行末尾:                  $
+
+到一个字的开头:             b
+到一个字的末尾:             e
+</code></pre><p>替换和删除</p>
+<pre><code>替换字符                    r_
+删除字符                    x
+删除行：                    dd
+
+删除字：
+
+光标位置   两字之间的空格：          在一个字的首字符：  不在一个字的首字符：
+dw         删除空格                 删除当前字         删除当前字符，直到下一个字的首字母
+db          删除前一个字, 不删除空格   删除前一个字       删除前一个字符，直到空格
+</code></pre><p>粘贴和复制</p>
+<pre><code>剪切行：                   dd
+复制行：                   yy
+粘贴到光标前面：            P
+粘贴到光标后面：            p
+</code></pre><p>搜索字符串</p>
+<pre><code>正向搜索：                  /string
+反向搜索：                  ?string
+搜索下一个：                n
+</code></pre><p>撤销和重复</p>
+<pre><code>撤销：                      u
+重复：                      .
+</code></pre><p>其他命令</p>
+<pre><code>查找光标所在单词的手册：      K
+保存退出vi：                ZZ
+</code></pre><p>进入插入模式</p>
+<pre><code>光标左侧：                  i
+光标右侧：                  a
+
+光标所在行开头:              I
+光标所在行结尾:              A
+
+光标上一行:                 O
+光标下一行:                 o
+</code></pre></li>
+<li><p>插入模式</p>
+<p>退出插入模式：              ESC</p>
+</li>
+</ul>
+<ul>
+<li><p>命令模式</p>
+<p>行号</p>
+<pre><code>移动到第n行                 :n    .(光标所在行)    $(末尾行)
+</code></pre><p>保存和文件</p>
+<pre><code>:w                    保存        
+:wq                   保存退出
+:q!                   不保存退出
+:w [file]             另存为
+:a,bw [file]          将第a行至第b行写入file文件
+:r [file]             读取fle文件的内容，插入当前光标所在行的后面
+:e [file]             编辑新文件
+:f [file]             重命名文件
+:f                    输出当前文件名称和状态
+</code></pre><p>搜索和替换</p>
+<pre><code>:/str/                 正向搜索
+:?str?                 反向搜索
+:1,$ s/str1/str2/      用str2替换正文中首次出现的str1
+:1,$ s/str1/str2/g     用str2替换正文中每次出现的str1
+</code></pre><p>删除正文</p>
+<pre><code>:d                     删除光标所在行
+:d .,$d                删除当前行至正文末尾
+</code></pre><p>恢复文件</p>
+<pre><code>:recover               上次编辑意外退出，从临时文件恢复文件内容(该文件以.开头，并以.swp 结尾)
+</code></pre><p>选项设置</p>
+<pre><code>:set [option]
+   autoindent        设置该选项，则正文自动缩进；
+   ignorecase        设置该选项，则忽略规则表达式中大小写字母的区别；
+   number            设置该选项，则显示正文行号；
+   ruler             设置该选项，则在屏幕底部显示光标所在行、列的位置；
+   tabstop           设置按 Tab 键跳过的空格数。例如 :set tabstop=n，n 默认值为 8；
+   mk                将选项保存在当前目录的 .exrc 文件中；
+</code></pre><p>执行shell命令</p>
+<pre><code>:![command]            无需退出vi即可执行linux命令
+</code></pre></li>
+</ul>
+<h2 id="upstart">upstart</h2>
+<ul>
+<li><p>官网</p>
+<p><a href="http://upstart.ubuntu.com">http://upstart.ubuntu.com</a></p>
+</li>
+<li><p>简介</p>
+<p>Upstart 可以优雅地管理所有Linux程序的启动和停止,包括Node程序。</p>
+<p>Upstart支持现代版的Ubuntu和 CentOS。</p>
+</li>
+<li><p>安装</p>
+<p>Ubuntu: <code>sudo apt-get install upstart</code></p>
+<p>CentOS: <code>sudo yum install upstart</code></p>
+</li>
+<li><p>配置文件</p>
+<p><code>sudo touch /etc/init/hellonode.conf</code></p>
+</li>
+<li><p>配置选项</p>
+<p>把下面代码清单中的内容添加到你的配置文件中。这个设置会在你的服务器启动时运行你的
+程序,并在服务器关闭前停止它。其中的 exec 部分由 Upstart执行。</p>
+<pre><code>#!upstart
+
+author &quot;mcantelon&quot;
+description &quot;hellonode&quot;
+setuid &quot;nonrootuser&quot;
+
+start on (local-filesystems and net-device-up IFACE=eth0)
+stop on shutdown
+respawn
+
+console log
+
+env NODE_ENV=production
+
+exec /usr/bin/node /path/to/server.js
+</code></pre><p>1.指定程序的作者</p>
+<p>2.设定程序的名称或描述</p>
+<p>3.用 nonrootuser 用户运行程序</p>
+<p>4.系统启动时,在文件系统和网络可用之后启动程序</p>
+<p>5.关闭时停止程序</p>
+<p>6.在程序崩溃时重启程序</p>
+<p>7.将 stdin 和 stderr 输出到 /var/log/upstart/yourapp.log</p>
+<p>8.为程序设定必要的环境变量</p>
+<p>9.指定执行程序的命令</p>
+</li>
+</ul>
+<h2 id="redis">redis</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install redis-server</code></p>
+</li>
+</ul>
+<h2 id="nginx">nginx</h2>
+<ul>
+<li><p>描述</p>
+<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器</p>
+</li>
+<li><p>安装</p>
+<p><code>sudo apt-get install nginx</code></p>
+</li>
+<li><p>常用命令</p>
+<p>启动（指定加载的配置文件）</p>
+<pre><code>nginx -c /etc/nginx/nginx.conf
+</code></pre><p>停止： </p>
+<pre><code>nginx -s stop 或者
+nginx -s quit 或者
+pkill -9 nginx
+</code></pre><p>重载配置： </p>
+<pre><code>nginx -s reload
+</code></pre><p>检查配置文件是否正确：</p>
+<pre><code>nginx -t
+</code></pre></li>
+</ul>
+<h2 id="rar">rar</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install rar</code></p>
+<p><code>sudo apt-get install unrar</code></p>
+</li>
+</ul>
+<h2 id="curl">curl</h2>
+<ul>
+<li><p>安装</p>
+<p><code>$ sudo apt-get install curl</code></p>
+</li>
+<li><p>下载</p>
+<p>http:</p>
+<p><code>curl -C -O http://cgi2.tky.3wb.ne.jp/~zzh/screen1.JPG</code></p>
+<p>ftp:</p>
+<p><code>curl -u name:passwd ftp://ip:port/path/file</code></p>
+<p><code>curl ftp://name:passwd@ip:port/path/file</code> </p>
+</li>
+<li><p>上传</p>
+<p>http:</p>
+<p><code>curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi</code></p>
+<p>这时候，使用的协议是HTTP的PUT method </p>
+<p>ftp:</p>
+<p><code>curl -T localfile -u name:passwd ftp://upload_site:port/path/</code></p>
+</li>
+<li><p>表单提交</p>
+<p>GET:</p>
+<p><code>curl http://www.yahoo.com/login.cgi?user=nickwolfe&amp;password=12345</code></p>
+<p>GET模式什么option都不用，只需要把变量写在url里面就可以了 </p>
+<p>POST:</p>
+<p><code>curl -d &quot;user=nickwolfe&amp;password=12345&quot; http://www.yahoo.com/login.cgi</code></p>
+<p>POST模式下的文件上的文件上传：</p>
+<pre><code class="lang-HTML">&lt;form method=&quot;POST&quot; enctype=&quot;multipar/form-data&quot; action=&quot;http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi&quot;&gt; 
+  &lt;input type=file name=upload&gt; 
+  &lt;input type=submit name=nick value=&quot;go&quot;&gt; 
+&lt;/form&gt;
+</code></pre>
+<p>这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法： </p>
+<pre><code>curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+</code></pre></li>
+<li><p>其它参数</p>
+<pre><code>-i --include 把响应头输出出来
+</code></pre></li>
+</ul>
+<h2 id="java">java</h2>
+<ul>
+<li><p>使用 APT 安装 jdk</p>
+<p><code>sudo apt-get install openjdk-7-jdk</code></p>
+</li>
+<li><p>环境变量</p>
+<pre><code>export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export JRE_HOME=/usr/lib/jvm/java-7-openjdk-am64/jre
+export CLASSPATH=.:JAVAHOME/lib:JRE_HOME/lib:$CLASSPATH
+export PATH=JAVAHOME/bin:JRE_HOME/bin:$PATH
+</code></pre></li>
+</ul>
+<h2 id="android">android</h2>
+<ul>
+<li><p>下载 android-studio</p>
+<p>android-studio-ide-135.1629389-linux.zip</p>
+</li>
+<li><p>解压运行 </p>
+<p><code>bin/studio.sh</code></p>
+</li>
+<li><p>配置环境变量：</p>
+<pre><code>export ANDROID_HOME=/home/mwn/Android/Sdk
+PATH=$PATH:/home/mwn/Android/Sdk/tools
+PATH=$PATH:/home/mwn/Android/Sdk/platform-tools
+</code></pre></li>
+<li><p>编译报错问题:</p>
+<ol>
+<li><p><code>Cannot run   program &quot;xxx/build-tools/21.1.0/aapt&quot;</code></p>
+<p>解决方案：</p>
+<pre><code>sudo apt-get install lib32z1
+sudo apt-get install lib32stdc++6
+</code></pre><p>详细： <a href="http://jingyan.baidu.com/article/e73e26c0dab30224adb6a782.html">http://jingyan.baidu.com/article/e73e26c0dab30224adb6a782.html</a></p>
+</li>
+<li><p><code>/com.android.support/appcompat-v7/23.0.0/res/values-v23/values-v23.xml</code></p>
+<p>解决方案：</p>
+<pre><code>进入 Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7
+删除23.0.0文件夹，删除maven-metadata.xml中的&lt;version&gt;23.0.0&lt;/version&gt;`
+</code></pre><p>详细： <a href="http://www.68idc.cn/help/buildlang/ask/20150901530664.html">http://www.68idc.cn/help/buildlang/ask/20150901530664.html</a></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="ack-grep">ack-grep</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install ack-grep</code></p>
+</li>
+</ul>
+<h2 id="lsof">lsof</h2>
+<h1 id="-">辅助工具</h1>
+<h2 id="sublime-text-3">Sublime Text 3</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3</code></p>
+<p><code>sudo apt-get update</code></p>
+<p><code>sudo apt-get install sublime-text</code></p>
+</li>
+</ul>
+<h2 id="zeal">zeal</h2>
+<ul>
+<li><p>安装</p>
+<p><code>$ sudo add-apt-repository ppa:zeal-developers/ppa</code></p>
+<p><code>$ sudo apt-get update</code></p>
+<p><code>$ sudo apt-get install zeal</code></p>
+</li>
+</ul>
+<h2 id="vsc">vsc</h2>
+<ul>
+<li><p>官网下载 deb 包</p>
+<p><a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+</li>
+</ul>
+<h2 id="robomongo">robomongo</h2>
+<ul>
+<li><p>官网下载 deb 包</p>
+<p><code>wget http://app.robomongo.org/files/linux/robomongo-0.8.5-x86_64.deb</code></p>
+</li>
+<li><p>其它版本</p>
+<p><a href="http://app.robomongo.org/download.html">http://app.robomongo.org/download.html</a></p>
+</li>
+</ul>
+<h2 id="xmind">xmind</h2>
+<ul>
+<li><p>官网下载 deb 包</p>
+<p><code>wget http://xiazai.xmindchina.cn/trail/xmind-7-linux-amd64.deb</code></p>
+</li>
+</ul>
+<h2 id="chrome">Chrome</h2>
+<ul>
+<li><p>官网下载 deb 包</p>
+<p><code>wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</code></p>
+</li>
+<li><p>安装常用插件</p>
+<p>Postman, JSONView</p>
+</li>
+</ul>
+<h1 id="-">应用程序</h1>
+<h2 id="sogoupinyin">sogoupinyin</h2>
+<ul>
+<li><p>官网下载 deb 包</p>
+<p><a href="http://pinyin.sogou.com/linux/">http://pinyin.sogou.com/linux/</a></p>
+</li>
+<li><p>配置</p>
+<p>打开 Fcitx configuration ， 选择 &#39;+&#39; ，把 Only show current language 取消勾选，搜索 pinyin 添加进来</p>
+</li>
+</ul>
+<h2 id="wps-office">WPS Office</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install wps-office</code></p>
+</li>
+</ul>
+<h2 id="smplayer">smplayer</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install smplayer</code></p>
+</li>
+</ul>
+<h2 id="amule">amule</h2>
+<ul>
+<li><p>简介</p>
+<p>下载工具</p>
+</li>
+<li><p>安装</p>
+<p><code>sudo apt-get install amule amule-utils</code></p>
+</li>
+<li><p>配置与chrome关联</p>
+<p><code>sudo gedit /usr/bin/xdg-open</code></p>
+<p>将其中open-gnome处改为</p>
+<pre><code>open_gnome()
+{
+    if echo &quot;$1&quot; | grep -q &#39;^ed2k://&#39;; then
+    ed2k &quot;$1&quot;
+
+    elif gvfs-open --help 2&gt;/dev/null 1&gt;&amp;2; then
+        gvfs-open &quot;$1&quot;
+    else
+        gnome-open &quot;$1&quot;
+    fi
+
+    if [ $? -eq 0 ]; then
+        exit_success
+    else
+        exit_failure_operation_failed
+    fi
+}
+</code></pre></li>
+</ul>
+<h2 id="virtualbox">virtualbox</h2>
+<ul>
+<li><p>安装</p>
+<p>下载地址： <a href="http://download.virtualbox.org/virtualbox/5.0.10/virtualbox-5.0_5.0.10-104061~Ubuntu~trusty_amd64.deb">http://download.virtualbox.org/virtualbox/5.0.10/virtualbox-5.0_5.0.10-104061~Ubuntu~trusty_amd64.deb</a></p>
+</li>
+<li><p>使用 Virtualbox 安装 Windows</p>
+<p><a href="http://www.linuxidc.com/Linux/2012-11/74195p3.htm">http://www.linuxidc.com/Linux/2012-11/74195p3.htm</a></p>
+</li>
+</ul>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
