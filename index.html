@@ -231,6 +231,22 @@ enabled=0
 <p><code>alias unzip=&quot;unzip -O CP936&quot;</code></p>
 </li>
 </ul>
+<h2 id="win7-8-ubuntu-">win7/8 + Ubuntu 双系统时间不对</h2>
+<ul>
+<li><p>原理</p>
+<p>装了双系统windows+ubuntu的童鞋可能会遇到这种情况，就是在windows下的时间老是不对，即使你
+调整好，当你登陆过ubuntu后，再重新登陆windows后，时间又会变得不对了，细心地朋友会发现这其
+中恰好差了8个小时！</p>
+<p>这主要是因为安装ubuntu时选择了UTC时间，就是ubuntu一开机总是从Internet获取时间，写入Bios，
+然后在这个时间的基础上+8（根据当时选择的时区东八区），就是此时系统中的显示的时间。</p>
+<p>但是win7就悲剧了，它总是从Bios中读取时间，而这个时间是ubuntu写入的UTC时间，它不会加8个小时。
+所以就出现了这样的情况。</p>
+</li>
+<li><p>解决办法</p>
+<p>1.<code>sudo gedit /etc/default/rcS</code> ，utc=yes 改成utc=no</p>
+<p>2.将时间写入BIOS： <code>sudo hwclock --systohc</code></p>
+</li>
+</ul>
 <h2 id="win7-8-ubuntu-ubuntu">win7/8 + Ubuntu 双系统直接进入 Ubuntu</h2>
 <ul>
 <li><p>执行以下命令，然后重启</p>
@@ -285,7 +301,7 @@ enabled=0
 <p>重新启动时加上 -x 选项</p>
 </li>
 </ul>
-<h1 id="-">开发工具</h1>
+<h1 id="-">效率开发</h1>
 <h2 id="oh-my-zsh">oh-my-zsh</h2>
 <ul>
 <li><p>简介</p>
@@ -341,6 +357,87 @@ alias scs=&quot;source ~/.zshrc&quot;
 <p><code>source ~/.zshrc</code></p>
 </li>
 </ul>
+<h2 id="tmux">tmux</h2>
+<ul>
+<li><p>基础</p>
+<p>官网</p>
+<p><a href="https://tmux.github.io/">https://tmux.github.io/</a></p>
+<p>安装</p>
+<p>ubuntu: <code>$ sudo apt-get install tmux</code></p>
+<p>简介</p>
+<pre><code>The tmux server manages clients, sessions, windows and panes. Clients are
+attached to sessions to interact with them, either when they are created
+with the new-session command, or later with the attach-session command.
+Each session has one or more windows linked into it. Windows may be linked
+to multiple sessions and are made up of one or more panes, each of which
+contains a pseudo terminal.
+</code></pre><p>前缀</p>
+<pre><code class="lang-`">Ctrl + b
+</code></pre>
+</li>
+<li><p>命令</p>
+<p>启动</p>
+<pre><code>start-server (alias: start)
+</code></pre><p>关闭</p>
+<pre><code>kill-server
+</code></pre><p>查看</p>
+<pre><code>list-sessions (alias: ls)
+  [-F format]
+</code></pre><p>新建</p>
+<pre><code>new-session (alias: new)
+  [-AdDEP]
+  [-c start-directory]
+  [-F format]
+  [-n window-name]
+  [-s session-name]
+  [-t target-session]
+  [-x width]
+  [-y height]
+  [shell-command]
+</code></pre><p>打开</p>
+<pre><code>attach-session (alias: attach)
+  [-dEr]
+  [-c working-directory]
+  [-t target-session]
+</code></pre><p>重命名</p>
+<pre><code>rename-session (alias: rename)
+  [-t target-session] new-name
+</code></pre><p>关闭</p>
+<pre><code>kill-session
+  [-aC]
+  [-t target-session]
+</code></pre></li>
+<li><p>快捷键</p>
+<p>client</p>
+<pre><code>D   Choose a client to detach.
+d   Detach the current client.
+</code></pre><p>session</p>
+<pre><code>s   Select a new session for the attached client interactively.
+$   Rename the current session.
+L   Switch the attached client back to the last session.
+(   Switch the attached client to the previous session.
+)   Switch the attached client to the next session.
+</code></pre><p>window</p>
+<pre><code>w   Choose the current window interactively.
+0-9 Select windows 0 to 9.
+c   Create a new window.
+,   Rename the current window.
+l   Move to the previously selected window.
+p   Change to the previous window.
+n   Change to the next window.
+&amp;   Kill the current window.
+</code></pre><p>pane</p>
+<pre><code>%   Split the current pane into two, left and right.
+&quot;   Split the current pane into two, top and bottom.
+;   Move to the previously active pane.
+o   Select the next pane in the current window.
+z   Toggle zoom state of the current pane.
+x   Kill the current pane.
+!   Break the current pane out of the window.
+PageUp Enter       Copy mode and scroll one page up.
+Up,Down,Left,Right Change to the pane above, below, to the left, or to the right of the current pane.
+</code></pre></li>
+</ul>
 <h2 id="tldr">tldr</h2>
 <ul>
 <li><p>简介</p>
@@ -350,35 +447,55 @@ alias scs=&quot;source ~/.zshrc&quot;
 <p><a href="https://github.com/tldr-pages/tldr">https://github.com/tldr-pages/tldr</a></p>
 </li>
 <li><p>安装</p>
-<npm install -g tldr>
-
+<p><code>npm install -g tldr</code></p>
 </li>
 </ul>
-<h2 id="git">git</h2>
+<h2 id="ack-grep">ack-grep</h2>
 <ul>
 <li><p>安装</p>
-<p><code>sudo apt-get install git</code></p>
+<p><code>sudo apt-get install ack-grep</code></p>
 </li>
 </ul>
-<h2 id="node">node</h2>
+<h2 id="curl">curl</h2>
 <ul>
 <li><p>安装</p>
-<p><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.27.0/install.sh | bash</code></p>
-<p><code>nvm install 0.10.38</code></p>
-<p><code>nvm use 0.10.38</code></p>
-<p><code>npm install -g npm@2.9.0</code></p>
+<p><code>$ sudo apt-get install curl</code></p>
 </li>
-<li><p>全局安装常用模块</p>
-<p><code>npm install -g http-server</code></p>
-<p><code>npm install -g mongo-express</code></p>
+<li><p>下载</p>
+<p>http:</p>
+<p><code>curl -C -O http://cgi2.tky.3wb.ne.jp/~zzh/screen1.JPG</code></p>
+<p>ftp:</p>
+<p><code>curl -u name:passwd ftp://ip:port/path/file</code></p>
+<p><code>curl ftp://name:passwd@ip:port/path/file</code> </p>
 </li>
+<li><p>上传</p>
+<p>http:</p>
+<p><code>curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi</code></p>
+<p>这时候，使用的协议是HTTP的PUT method </p>
+<p>ftp:</p>
+<p><code>curl -T localfile -u name:passwd ftp://upload_site:port/path/</code></p>
+</li>
+<li><p>表单提交</p>
+<p>GET:</p>
+<p><code>curl http://www.yahoo.com/login.cgi?user=nickwolfe&amp;password=12345</code></p>
+<p>GET模式什么option都不用，只需要把变量写在url里面就可以了 </p>
+<p>POST:</p>
+<p><code>curl -d &quot;user=nickwolfe&amp;password=12345&quot; http://www.yahoo.com/login.cgi</code></p>
+<p>POST模式下的文件上的文件上传：</p>
+<pre><code class="lang-HTML">&lt;form method=&quot;POST&quot; enctype=&quot;multipar/form-data&quot; action=&quot;http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi&quot;&gt; 
+  &lt;input type=file name=upload&gt; 
+  &lt;input type=submit name=nick value=&quot;go&quot;&gt; 
+&lt;/form&gt;
+</code></pre>
+<p>这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法： </p>
+<pre><code>curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+</code></pre></li>
+<li><p>其它参数</p>
+<pre><code>-i --include 把响应头输出出来
+-X           指定 http 请求方式
+</code></pre></li>
 </ul>
-<h2 id="mongodb">mongodb</h2>
-<ul>
-<li><p>安装</p>
-<p><code>sudo apt-get install mongodb</code></p>
-</li>
-</ul>
+<h1 id="-">开发工具</h1>
 <h2 id="vi">vi</h2>
 <ul>
 <li><p>编辑模式</p>
@@ -432,10 +549,9 @@ db          删除前一个字, 不删除空格   删除前一个字       删�
 光标下一行:                 o
 </code></pre></li>
 <li><p>插入模式</p>
-<p>退出插入模式：              ESC</p>
-</li>
-</ul>
-<ul>
+<p>退出插入模式</p>
+<pre><code>ESC
+</code></pre></li>
 <li><p>命令模式</p>
 <p>行号</p>
 <pre><code>移动到第n行                 :n    .(光标所在行)    $(末尾行)
@@ -469,6 +585,58 @@ db          删除前一个字, 不删除空格   删除前一个字       删�
    mk                将选项保存在当前目录的 .exrc 文件中；
 </code></pre><p>执行shell命令</p>
 <pre><code>:![command]            无需退出vi即可执行linux命令
+</code></pre></li>
+</ul>
+<h2 id="git">git</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install git</code></p>
+</li>
+</ul>
+<h2 id="nvm">nvm</h2>
+<ul>
+<li><p>安装</p>
+<p><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.27.0/install.sh | bash</code></p>
+<p><code>nvm install 0.10.38</code></p>
+<p><code>nvm use 0.10.38</code></p>
+<p><code>npm install -g npm@2.9.0</code></p>
+</li>
+<li><p>全局安装常用模块</p>
+<p><code>npm install -g http-server</code></p>
+<p><code>npm install -g mongo-express</code></p>
+</li>
+</ul>
+<h2 id="mongodb">mongodb</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install mongodb</code></p>
+</li>
+</ul>
+<h2 id="redis">redis</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install redis-server</code></p>
+</li>
+</ul>
+<h2 id="nginx">nginx</h2>
+<ul>
+<li><p>描述</p>
+<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器</p>
+</li>
+<li><p>安装</p>
+<p><code>sudo apt-get install nginx</code></p>
+</li>
+<li><p>常用命令</p>
+<p>启动（指定加载的配置文件）</p>
+<pre><code>nginx -c /etc/nginx/nginx.conf
+</code></pre><p>停止： </p>
+<pre><code>nginx -s stop 或者
+nginx -s quit 或者
+pkill -9 nginx
+</code></pre><p>重载配置： </p>
+<pre><code>nginx -s reload
+</code></pre><p>检查配置文件是否正确：</p>
+<pre><code>nginx -t
 </code></pre></li>
 </ul>
 <h2 id="upstart">upstart</h2>
@@ -516,78 +684,6 @@ exec /usr/bin/node /path/to/server.js
 <p>9.指定执行程序的命令</p>
 </li>
 </ul>
-<h2 id="redis">redis</h2>
-<ul>
-<li><p>安装</p>
-<p><code>sudo apt-get install redis-server</code></p>
-</li>
-</ul>
-<h2 id="nginx">nginx</h2>
-<ul>
-<li><p>描述</p>
-<p>Nginx是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器</p>
-</li>
-<li><p>安装</p>
-<p><code>sudo apt-get install nginx</code></p>
-</li>
-<li><p>常用命令</p>
-<p>启动（指定加载的配置文件）</p>
-<pre><code>nginx -c /etc/nginx/nginx.conf
-</code></pre><p>停止： </p>
-<pre><code>nginx -s stop 或者
-nginx -s quit 或者
-pkill -9 nginx
-</code></pre><p>重载配置： </p>
-<pre><code>nginx -s reload
-</code></pre><p>检查配置文件是否正确：</p>
-<pre><code>nginx -t
-</code></pre></li>
-</ul>
-<h2 id="rar">rar</h2>
-<ul>
-<li><p>安装</p>
-<p><code>sudo apt-get install rar</code></p>
-<p><code>sudo apt-get install unrar</code></p>
-</li>
-</ul>
-<h2 id="curl">curl</h2>
-<ul>
-<li><p>安装</p>
-<p><code>$ sudo apt-get install curl</code></p>
-</li>
-<li><p>下载</p>
-<p>http:</p>
-<p><code>curl -C -O http://cgi2.tky.3wb.ne.jp/~zzh/screen1.JPG</code></p>
-<p>ftp:</p>
-<p><code>curl -u name:passwd ftp://ip:port/path/file</code></p>
-<p><code>curl ftp://name:passwd@ip:port/path/file</code> </p>
-</li>
-<li><p>上传</p>
-<p>http:</p>
-<p><code>curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi</code></p>
-<p>这时候，使用的协议是HTTP的PUT method </p>
-<p>ftp:</p>
-<p><code>curl -T localfile -u name:passwd ftp://upload_site:port/path/</code></p>
-</li>
-<li><p>表单提交</p>
-<p>GET:</p>
-<p><code>curl http://www.yahoo.com/login.cgi?user=nickwolfe&amp;password=12345</code></p>
-<p>GET模式什么option都不用，只需要把变量写在url里面就可以了 </p>
-<p>POST:</p>
-<p><code>curl -d &quot;user=nickwolfe&amp;password=12345&quot; http://www.yahoo.com/login.cgi</code></p>
-<p>POST模式下的文件上的文件上传：</p>
-<pre><code class="lang-HTML">&lt;form method=&quot;POST&quot; enctype=&quot;multipar/form-data&quot; action=&quot;http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi&quot;&gt; 
-  &lt;input type=file name=upload&gt; 
-  &lt;input type=submit name=nick value=&quot;go&quot;&gt; 
-&lt;/form&gt;
-</code></pre>
-<p>这样一个HTTP表单，我们要用curl进行模拟，就该是这样的语法： </p>
-<pre><code>curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
-</code></pre></li>
-<li><p>其它参数</p>
-<pre><code>-i --include 把响应头输出出来
-</code></pre></li>
-</ul>
 <h2 id="java">java</h2>
 <ul>
 <li><p>使用 APT 安装 jdk</p>
@@ -630,15 +726,8 @@ sudo apt-get install lib32stdc++6
 </ol>
 </li>
 </ul>
-<h2 id="ack-grep">ack-grep</h2>
-<ul>
-<li><p>安装</p>
-<p><code>sudo apt-get install ack-grep</code></p>
-</li>
-</ul>
-<h2 id="lsof">lsof</h2>
 <h1 id="-">辅助工具</h1>
-<h2 id="sublime-text-3">Sublime Text 3</h2>
+<h2 id="sublime-text-3">sublime-text-3</h2>
 <ul>
 <li><p>安装</p>
 <p><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3</code></p>
@@ -675,16 +764,20 @@ sudo apt-get install lib32stdc++6
 <p><code>wget http://xiazai.xmindchina.cn/trail/xmind-7-linux-amd64.deb</code></p>
 </li>
 </ul>
-<h2 id="chrome">Chrome</h2>
+<h2 id="chrome">chrome</h2>
 <ul>
 <li><p>官网下载 deb 包</p>
 <p><code>wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</code></p>
 </li>
-<li><p>安装常用插件</p>
-<p>Postman, JSONView</p>
-</li>
 </ul>
 <h1 id="-">应用程序</h1>
+<h2 id="rar">rar</h2>
+<ul>
+<li><p>安装</p>
+<p><code>sudo apt-get install rar</code></p>
+<p><code>sudo apt-get install unrar</code></p>
+</li>
+</ul>
 <h2 id="sogoupinyin">sogoupinyin</h2>
 <ul>
 <li><p>官网下载 deb 包</p>
@@ -694,7 +787,7 @@ sudo apt-get install lib32stdc++6
 <p>打开 Fcitx configuration ， 选择 &#39;+&#39; ，把 Only show current language 取消勾选，搜索 pinyin 添加进来</p>
 </li>
 </ul>
-<h2 id="wps-office">WPS Office</h2>
+<h2 id="wps-office">wps-office</h2>
 <ul>
 <li><p>安装</p>
 <p><code>sudo apt-get install wps-office</code></p>
