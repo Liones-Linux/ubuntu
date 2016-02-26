@@ -131,6 +131,14 @@
 
     `sudo apt-get install bumblebee-nvidia`
 
+## 解决ubuntu系统下 启动gulp报错  Error: watch ENOSPC
+
+    这里的问题主要是因为gulp的watch需要监听很多文件的改动,但是ubuntu系统的文件句柄其实是有限制的,上面的命令就是为了让用户可监听的文件数量更多,以便不受这个限制.
+
+    解决方法：
+
+     `echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p`
+
 ## 双显示器扩展方式外接显示器分辨率低
 
 -   详细：
